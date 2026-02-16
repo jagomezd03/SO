@@ -14,13 +14,12 @@
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Iinclude
-
+TARGET = eafitos
 # Directorios de trabajo
 SRC_DIR = src
 BUILD_DIR = build
+BIN_DIR = bin
 
-# Nombre del ejecutable final
-TARGET = $(BUILD_DIR)/sistema_os
 
 # ------------------------------------------------------------------------------
 # Búsqueda de Archivos Fuente
@@ -39,6 +38,14 @@ SRCS = $(wildcard $(SRC_DIR)/core/*.c) \
 # Sintaxis: $(VARIABLE:patron_viejo=patron_nuevo)
 # Esto nos permite saber qué archivos .o esperamos generar.
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
+
+# Colores para output
+RED = \033[0;31m
+GREEN = \033[0;32m
+YELLOW = \033[1;33m
+BLUE = \033[0;34m
+CYAN = \033[0;36m
+NC = \033[0m # No Color
 
 # ------------------------------------------------------------------------------
 # Reglas Especiales (.PHONY)
@@ -88,3 +95,13 @@ clean:
 run: all
 	@echo "🚀 Ejecutando EAFITos..."
 	./$(TARGET)
+
+# Mostar comandos disponibles en el Makefile
+help:
+	@echo "$(CYAN)Comandos disponibles:$(NC)"
+	@echo "  make        - Compilar el proyecto"
+	@echo "  make clean  - Limpiar archivos compilados"
+	@echo "  make run    - Compilar y ejecutar"
+	@echo "  make help   - Mostrar esta ayuda"
+
+.PHONY: help

@@ -22,12 +22,19 @@
  */
 
 char *nombres_comandos[] = {
+    // Básicos (6)
     "listar",
     "leer",
     "tiempo",
     "calc",
     "ayuda",
-    "salir"
+    "salir",
+    
+    // Avanzados (4)
+    "historial",
+    "limpiar",
+    "buscar",
+    "estadisticas"
 };
 
 /*
@@ -36,12 +43,19 @@ char *nombres_comandos[] = {
  * y recibe como parámetro un arreglo de cadenas (char **)".
  */
 void (*func_comandos[]) (char **) = {
-    &cmd_listar,
-    &cmd_leer,
-    &cmd_tiempo,
-    &cmd_calc,
-    &cmd_ayuda,
-    &cmd_salir
+    // Básicos (6)
+    cmd_listar,        // listar
+    cmd_leer,          // leer
+    cmd_tiempo,        // tiempo
+    cmd_calc,          // calc
+    cmd_ayuda,         // ayuda
+    cmd_salir,         // salir
+    
+    // Avanzados (4)
+    cmd_historial,     // historial
+    cmd_limpiar,       // limpiar
+    cmd_buscar,        // buscar
+    cmd_estadisticas   // estadisticas
 };
 
 /**
@@ -50,7 +64,7 @@ void (*func_comandos[]) (char **) = {
  * @return int El número de comandos (tamaño del array / tamaño de un elemento ptr).
  */
 int num_comandos() {
-    return sizeof(nombres_comandos) / sizeof(char *);
+    return sizeof(nombres_comandos) / sizeof(nombres_comandos[0]);
 }
 
 /**
@@ -69,7 +83,7 @@ void ejecutar(char **args) {
         // strcmp: Retorna 0 si dos cadenas son idénticas.
         if (strcmp(args[0], nombres_comandos[i]) == 0) {
             // ¡Coincidencia encontrada! Llamamos a la función a través del puntero.
-            (*func_comandos[i])(args);
+            func_comandos[i](args);
             return;
         }
     }
@@ -90,23 +104,27 @@ void ejecutar(char **args) {
 void loop_shell() {
     char *linea;   // Almacenará la línea cruda
     char **args;   // Almacenará los tokens
-    int status = 1; // Variable de control del bucle
 
-    do {
+    while (1) {
         printf("EAFITos> ");
         
         // 1. Lectura
         linea = leer_linea();
         
-        // 2. Parseo
+        // 2. Guardar en historial (SOLO si no es vacío)
+        if (linea != NULL && strlen(linea) > 0) {
+            add_to_history(linea);
+        }
+
+        // 3. Parseo
         args = parsear_linea(linea);
         
-        // 3. Ejecución
+        // 4. Ejecución
         ejecutar(args);
         
-        // 4. Limpieza de memoria (Gestión manual requerida en C)
+        // 5. Limpieza de memoria (Gestión manual requerida en C)
         free(linea); // Libera el buffer de getline
         free(args);  // Libera el arreglo de punteros (nota: no los strings individuales si son punteros a 'linea')
         
-    } while (status); // Por ahora el loop es infinito hasta que cmd_salir hace exit(0)
+    }
 }

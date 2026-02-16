@@ -8,12 +8,19 @@
 
 #ifndef SHELL_H
 #define SHELL_H
+#include <stddef.h>
 
 // Tamaño máximo del buffer de entrada (aunque getline maneja dinámicamente)
 #define MAX_CMD_INPUT 1024
 
 // Caracteres que separan los argumentos de un comando (espacio, tab, etc.)
 #define DELIM " \t\r\n\a"
+
+//--- constantes para el historial ---
+#define MAX_HISTORY 10
+
+extern char *history[MAX_HISTORY];
+extern int history_count;
 
 /**
  * @brief Inicia el bucle principal de la shell.
@@ -39,5 +46,9 @@ char **parsear_linea(char *linea);
  * @param args Lista de argumentos.
  */
 void ejecutar(char **args);
+
+//--- Funciones de utilidad ---
+void add_to_history(const char *cmd);
+void free_history();
 
 #endif

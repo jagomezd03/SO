@@ -7,6 +7,7 @@
 #include <stdlib.h> // exit, malloc
 #include <time.h>   // time, localtime, strftime
 #include "commands.h"
+#include "shell.h"
 
 /**
  * @brief Comando AYUDA
@@ -17,15 +18,29 @@
  * @param args Argumentos del comando (no se usan aquí, por eso (void)args).
  */
 void cmd_ayuda(char **args) {
-    printf("--- Ayuda de Shell Educativa ---\n");
-    printf("Comandos disponibles:\n");
+    printf("\n\033[1;36m════════════════════════════════════════\n");
+    printf("      EAFITos - SHELL EDUCATIVA\n");
+    printf("════════════════════════════════════════\033[0m\n\n");
+    
+    printf("\033[1;33mCOMANDOS BÁSICOS:\033[0m\n");
     printf("  - listar: Muestra archivos del directorio.\n");
     printf("  - leer <archivo>: Muestra el contenido de un archivo.\n");
     printf("  - tiempo: Muestra la fecha y hora actual.\n");
     printf("  - calc <n1> <op> <n2>: Realiza cálculos simples.\n");
     printf("  - ayuda: Muestra este mensaje.\n");
     printf("  - salir: Termina la sesión.\n");
+
+    printf("\033[1;33mCOMANDOS AVANZADOS:\033[0m\n");
+    printf("  historial            - Muestra últimos %d comandos\n", MAX_HISTORY);
+    printf("  limpiar              - Limpia la pantalla\n");
+    printf("  buscar <txt> <arch>  - Busca texto en archivo\n");
+    printf("  estadisticas <arch>  - Muestra info detallada del archivo\n\n");
     
+    printf("\033[1;32mEjemplos rápidos:\033[0m\n");
+    printf("  calc 5 + 3          → Resultado: 8.00\n");
+    printf("  buscar \"main\" main.c → Muestra líneas con 'main'\n");
+    printf("  estadisticas shell.h → Estadísticas completas\n\n");
+
     // Silenciar advertencia de compilador sobre variable no usada
     (void)args;
 }

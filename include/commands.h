@@ -41,6 +41,28 @@ void cmd_ayuda(char **args);
  */
 void cmd_salir(char **args);
 
+// --- Prototipos de Comandos Avanzados ---
+
+/** 
+ * @brief Muestra el historial de comandos ejecutados.
+*/
+void cmd_historial(char **args);
+
+/**
+ * @brief Limpia la pantalla de la terminal.
+ */
+void cmd_limpiar(char **args);
+
+/** 
+ * @brief Busca un archivo por nombre en el directorio actual.
+*/
+void cmd_buscar(char **args);
+
+/**
+ * @brief Muestra estadísticas del sistema, como uso de CPU y memoria.
+ */
+void cmd_estadisticas(char **args);
+
 // --- Utilidades del Registro de Comandos ---
 
 /**

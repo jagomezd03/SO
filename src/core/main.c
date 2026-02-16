@@ -22,6 +22,8 @@
  */
 #include "shell.h"
 
+#include "commands.h"
+
 /**
  * @brief Función principal del programa.
  * 
@@ -32,12 +34,22 @@
  */
 int main() {
     // Imprime el mensaje de bienvenida a la salida estándar (stdout)
-    printf("Iniciando EAFITos v1.0...\n");
-    printf("Escribe 'ayuda' para comenzar.\n\n");
+    printf("\033[1;36m");  // Cyan
+    printf("╔══════════════════════════════════════╗\n");
+    printf("║                                      ║\n");
+    printf("║         EAFITos v1.0                ║\n");
+    printf("║     Sistema Operativo Educativo      ║\n");
+    printf("║                                      ║\n");
+    printf("╚══════════════════════════════════════╝\n");
+    printf("\033[0m");  // Reset color
+    printf("\nEscribe 'ayuda' para comenzar.\n\n");
     
     // Llama al bucle principal de la shell ubicado en src/core/shell_loop.c.
     // Esta función no retornará hasta que el usuario decida salir.
     loop_shell();
+
+    // liberar memoria del historial antes de salir
+    free_history();
 
     // Retornamos 0 para indicar una finalización exitosa.
     return 0;
