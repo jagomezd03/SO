@@ -1,22 +1,39 @@
+# ============================================================================
 # Configuración básica de Doxygen para EAFITos
+# ============================================================================
 
+# --- Información del Proyecto ---
 PROJECT_NAME           = "EAFITos"
-PROJECT_NUMBER         = "1.0"
+PROJECT_NUMBER         = "1.1.0"                    # Versión actualizada
 PROJECT_BRIEF          = "Sistema Operativo Educativo y Shell"
 
-OUTPUT_DIRECTORY       = docs
-INPUT                  = src include
-RECURSIVE              = YES
+# --- Directorios de Entrada y Salida ---
+OUTPUT_DIRECTORY       = docs                       # Directorio de salida
+INPUT                  = src include                # Directorio de entrada
+RECURSIVE              = YES                        # Procesar subdirectorios
 
-OPTIMIZE_OUTPUT_FOR_C  = YES
-EXTRACT_ALL            = YES
-EXTRACT_PRIVATE        = YES
-EXTRACT_STATIC         = YES
+# --- Patrones de Archivos ---
+FILE_PATTERNS          = *.c *.h                    # Archivos a documentar
+EXCLUDE_PATTERNS       = */build/* */tests/*        # Excluir compilados y tests
 
-GENERATE_LATEX         = NO
-GENERATE_HTML          = YES
-HTML_OUTPUT            = html
+# --- Configuración para C ---
+OPTIMIZE_OUTPUT_FOR_C  = YES                        # Optimizado para C
+EXTRACT_ALL            = YES                        # Extraer todo (privado/público)
+EXTRACT_PRIVATE        = YES                        # Incluir miembros privados
+EXTRACT_STATIC         = YES                        # Incluir miembros estáticos
 
-# Visual styling
-HAVE_DOT               = NO
-# Set to YES if graphviz is installed for graphs
+# --- Rutas en la Documentación ---
+STRIP_FROM_PATH        = .                          # Limpiar rutas relativas
+SOURCE_BROWSER         = YES                        # Mostrar código fuente
+
+# --- Formato de Documentación ---
+JAVADOC_AUTOBRIEF      = YES                        # Primera línea como resumen
+GENERATE_LATEX         = NO                         # No generar LaTeX
+GENERATE_HTML          = YES                        # Generar HTML
+HTML_OUTPUT            = html                       # Carpeta de salida HTML
+
+# --- Visual Styling ---
+HAVE_DOT               = NO                         # Grafviz deshabilitado
+# HAVE_DOT             = YES                        # Descomenta si graphviz está instalado
+# CALL_GRAPH           = YES                        # Para generar grafos de llamadas
+# CALLER_GRAPH         = YES                        # Para generar grafos de llamadores
